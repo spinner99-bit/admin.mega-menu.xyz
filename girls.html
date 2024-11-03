@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Girls Pic</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="Element/Icon.png">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>    
+</head>
+<body>
+
+<header class="header">
+    <div class="menuBtnC">
+        <i class='bx bx-menu'></i>
+    </div>
+    <div id="header" class="userInfoR">
+        <!-- 头部内容将根据用户登录状态动态插入 -->
+    </div>
+</header>
+
+<!-- 侧边栏菜单 -->
+<div class="sidebar" id="sidebar">
+    <div class="sideBarTopCont">
+        <h2>MENU</h2>
+        <button class="close-btn" id="closeSidebar">
+            <i class='bx bx-x'></i>
+        </button>
+    </div>
+
+    <div class="menu-container-wrapper">
+        <div class="sideMenu-Cover">
+            <h1>LULU69</h1>
+            <a href="index"><i class='bx bxs-tachometer' ></i>Dashboard</a>
+            <a href="addTransaction"><i class='bx bxs-badge-dollar' ></i>Add Transaction</a>
+        </div>
+
+        <div class="sideMenu-Cover">
+            <h1>Y15 FAMILY</h1>
+            <a href="userList"><i class='bx bxs-user-circle'></i>Manage Users</a>
+            <a href="upload-history"><i class='bx bx-history'></i>Upload History</a>
+        </div>
+
+        <div class="sideMenu-Cover">
+            <h1>OTHER</h1>
+            <a href="girls"><i class='bx bxs-image'></i>Girls Image</a>
+            <a href="unregister"><i class='bx bxs-contact'></i>Unregister</a>
+        </div>
+    </div>
+</div>
+
+<div class="girls-all-cover">
+    <form id="uploadForm" enctype="multipart/form-data" class="uploadFormDiv">
+        <input type="file" name="photo" id="photoInput" accept="image/*" required>
+        <button type="submit" id="uploadBtn">Upload</button>
+    </form>
+
+    <div class="girl-count-image">ALREADY UPLOAD (<span id="countImg">0</span>) PICTURE</div>
+
+    <div id="photoGallery"></div>
+</div>
+
+<script>
+    // 检查用户登录状态
+    function checkLoginStatus() {
+    const username = localStorage.getItem('username');
+    const headerDiv = document.getElementById('header');
+
+    if (!username) {
+        // 如果未登录，跳转到 login.html
+        window.location.href = 'login.html';
+    } else {
+        // 如果已登录，显示欢迎信息和登出按钮
+        const welcomeMessage = `Welcome, ${username}`;
+        headerDiv.innerHTML = `
+            <div class="welcome-message">${welcomeMessage}</div>
+            <button class="logout-btn" onclick="logout()"><i class='bx bx-log-out-circle'></i></button>
+        `;
+    }
+}
+
+// 退出登录功能
+function logout() {
+    // 清除登录信息
+    localStorage.removeItem('username');
+    localStorage.removeItem('fullName');
+    localStorage.removeItem('phoneNumber');
+    localStorage.removeItem('option1');
+    localStorage.removeItem('number2');
+    localStorage.removeItem('option2');
+
+    // 跳转回登录页面
+    window.location.href = 'login.html';
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const currentPath = window.location.pathname;
+
+    // 检查路径是否以 .html 结尾
+    if (currentPath.endsWith('.html')) {
+        const newPath = currentPath.slice(0, -5);
+        history.replaceState(null, '', newPath);
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+const loggedInUser = localStorage.getItem("username"); // 假设存储了用户名
+
+// 如果用户不是 admin，重定向到 index.html
+if (loggedInUser !== "admin") {
+    window.location.href = "index.html"; // 重定向到 index.html
+} else {
+    // 如果是 admin，显示 avatarMenu
+    document.getElementById("adminMenu").style.display = "block";
+}
+});
+
+// 控制侧边栏的显示和隐藏
+const menuBtn = document.querySelector('.menuBtnC');
+const sidebar = document.getElementById('sidebar');
+const closeSidebarBtn = document.getElementById('closeSidebar');
+
+menuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('active'); // 点击按钮切换侧边栏显示状态
+});
+
+closeSidebarBtn.addEventListener('click', () => {
+    sidebar.classList.remove('active'); // 点击关闭按钮隐藏侧边栏
+});
+</script>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+import { getStorage, ref, uploadBytes, listAll, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js';
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+apiKey: "AIzaSyCZAy16MZxiE9gI3uC-Z_cLFCrzwFrlEak",
+authDomain: "my-first-project-831cd.firebaseapp.com",
+projectId: "my-first-project-831cd",
+storageBucket: "my-first-project-831cd.appspot.com",
+messagingSenderId: "750869058743",
+appId: "1:750869058743:web:971b1a14e9eb4aa0126932",
+};
+
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+
+// 上传照片
+document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+e.preventDefault();
+
+// 从 localStorage 获取 username
+const username = localStorage.getItem("username");
+if (!username) {
+    alert("Username not found in localStorage.");
+    return;
+}
+
+const fileInput = document.getElementById("photoInput");
+const file = fileInput.files[0];
+const storageRef = ref(storage, 'images/' + file.name);
+
+try {
+    await uploadBytes(storageRef, file);
+    const imageUrl = await getDownloadURL(storageRef);
+
+    // 格式化上传时间
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份从0开始
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const uploadTime = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+
+    // 生成 upload ID (使用当前时间戳)
+    const uploadID = `UPLOAD-${Date.now()}`;
+
+    // 发送数据到 Google Apps Script
+    await fetch("https://script.google.com/macros/s/AKfycbzpwW_CyuiwnMyHGrX_PrE4e-lRDU5_YZ4RleMQRGvXMWWZfLk_RMB6cXFhRDZ5VRRazQ/exec", {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify({
+            method: "upload",  // 添加方法标识
+            username: username,
+            uploadID: uploadID,  // 添加 upload ID
+            fileName: file.name,
+            imageUrl: imageUrl,
+            uploadTime: uploadTime
+        }),
+        headers: { "Content-Type": "application/json" }
+    });
+
+    alert("File uploaded and data saved!");
+
+    // 重新获取照片
+    fetchImages(); // 调用 fetchImages() 重新加载照片
+
+} catch (error) {
+    console.error("Upload failed:", error);
+}
+});
+
+
+// 获取并显示所有照片
+async function fetchImages() {
+try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbzDH4i5OcqYxf7qQ-bFdsZ6flS_0_bjpVXK8LNmHZpYsdjBf8gfM49LMsNBJbj4kxkwJQ/exec");
+    const imagesData = await response.json();
+    const photoGallery = document.getElementById('photoGallery');
+    photoGallery.innerHTML = ''; // 清空之前的图片
+
+    imagesData.forEach((imageData) => {
+        const imgContainer = document.createElement('div');
+        imgContainer.classList.add('img-container');
+
+        const img = document.createElement('img');
+        img.src = imageData.imageUrl;
+        img.alt = imageData.fileName;
+        img.style.width = '300px';
+        img.style.margin = '5px';
+
+        // 点击照片时弹出查看
+        img.addEventListener('click', () => {
+            showPopup(imageData.imageUrl); // 弹出图片
+        });
+
+        imgContainer.appendChild(img);
+
+        // 判断用户是否为 admin
+        const loggedInUser = localStorage.getItem("username");
+        if (loggedInUser === "admin") {
+            const deleteBtn = document.createElement('button');
+            deleteBtn.innerHTML = "<i class='bx bxs-trash-alt'></i>";
+            deleteBtn.classList.add("delete-button");
+            deleteBtn.addEventListener('click', (event) => {
+                event.stopPropagation(); // 阻止事件冒泡，避免触发弹出窗口
+                deleteImage(imageData.uploadID); // 使用 upload ID 作为标识符
+            });
+            imgContainer.appendChild(deleteBtn);
+        }
+
+        photoGallery.appendChild(imgContainer);
+    });
+
+    // 更新图片总数
+    updateImageCount(imagesData.length);
+
+} catch (error) {
+    console.error("Error fetching images:", error);
+}
+}
+
+// 更新图片总数
+function updateImageCount(count) {
+document.getElementById('countImg').textContent = count;
+}
+
+// 删除照片
+function deleteImage(uploadID) {
+const confirmed = confirm("Are you sure you want to delete this photo?");
+if (confirmed) {
+    fetch("https://script.google.com/macros/s/AKfycbzpwW_CyuiwnMyHGrX_PrE4e-lRDU5_YZ4RleMQRGvXMWWZfLk_RMB6cXFhRDZ5VRRazQ/exec", {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify({
+            method: "delete",
+            uploadID: uploadID
+        }),
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(() => {
+        alert("Photo deleted successfully.");
+        fetchImages(); // 删除后重新获取并显示图片
+    })
+    .catch((error) => {
+        console.error("Delete request failed:", error);
+    });
+}
+}
+
+
+
+// 弹出窗口显示图片的功能
+function showPopup(url) {
+// 检查是否已有弹窗，避免重复
+if (document.getElementById('popup')) return;
+
+const popup = document.createElement('div');
+popup.id = 'popup';
+popup.style.position = 'fixed';
+popup.style.top = '0';
+popup.style.left = '0';
+popup.style.width = '100vw';
+popup.style.height = '100vh';
+popup.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+popup.style.display = 'flex';
+popup.style.alignItems = 'center';
+popup.style.justifyContent = 'center';
+popup.style.zIndex = '1000';
+
+// 点击弹窗外部关闭弹窗
+popup.addEventListener('click', hidePopup);
+
+const img = document.createElement('img');
+img.src = url;
+img.style.maxWidth = '90%';
+img.style.maxHeight = '90%';
+img.style.zIndex = '1001';
+
+// 点击图片时阻止事件冒泡，避免关闭弹窗
+img.addEventListener('click', event => {
+    event.stopPropagation();
+});
+
+popup.appendChild(img);
+document.body.appendChild(popup);
+}
+
+// 隐藏弹窗的功能
+function hidePopup() {
+const popup = document.getElementById('popup');
+if (popup) {
+    popup.remove();
+}
+}
+
+// 页面加载时获取并显示图片
+window.onload = function() {
+checkLoginStatus();
+fetchImages();
+};
+</script>
+
+
+</body>
+</html>

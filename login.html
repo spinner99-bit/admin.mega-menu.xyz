@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOGIN CS-Tools</title>
+  <link rel="stylesheet" href="styles0.css">
+  <link rel="shortcut icon" href="Element/Icon.png">
+  <link rel="stylesheet"
+  href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+</head>
+<body onload="startTime()">
+
+  <div class="login-clock-cover">
+    <div id="clockdate">
+      <div class="clockdate-wrapper">
+        <div class="time-clock-div">
+          <div id="clock"></div>
+          <div id="time"></div>
+        </div>
+        <div id="date"></div>
+      </div>
+    </div>
+  </div>
+
+    <!-- 登录表单 -->
+  <div class="login-container-cover">
+
+    <div class="login-first-step" id="loginBefore">
+      <img src="Element/MyPic.png" class="MyPic">
+      <button class="login-button-first" onclick="showLoginForm()">LOGIN</button>
+    </div>
+
+      <!-- 模态框 -->
+      <div id="loginModal" class="modal">
+        <div class="modal-content">
+          <h1>LOGIN</h1>
+          <div class="inputDiv">
+            <input type="text" id="loginUsername" placeholder="Enter Your Username" required><br>
+            <input type="password" id="loginPassword" placeholder="Enter Your Password" required><br>
+          </div>
+          <button onclick="submitLogin()" class="submit-btn">LOGIN<i class='bx bx-log-in-circle' ></i></button>
+          <p id="loginMessage"></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="login.js"></script>
+
+</body>
+</html>
