@@ -49,6 +49,45 @@
     </div>
 </div>
 
+<div class="transaction-add-wrapper">
+    <div class="unregister-add-container">
+        <div class="transaction-add-top">
+            <p>Save Unregister Number</p>
+        </div>
+        <table id="dynamicTable">
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Mobile Number</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="unregister-tbody">
+                <tr>
+                    <td>
+                        <select>
+                            <option value="MB33">MB33</option>
+                            <option value="VR46">VR46</option>
+                            <option value="GC77">GC77</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" placeholder="Mobile Number">
+                    </td>
+                    <td>
+                        <button onclick="deleteRow(this)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="unregister-sumit-button">
+            <button onclick="addRow()">Add</button>
+            <button onclick="submitForm()">Save</button>
+        </div>
+    </div>
+</div>
+
+
 <script src="unregister.js"></script>
 
 </body>
