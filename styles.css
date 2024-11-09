@@ -847,3 +847,109 @@ header{
   margin-right: 50px;
   cursor: pointer;
 }
+
+.unregisterFull-Wrapper{
+  width: 100%; /* 使两个容器的宽度都占满父元素 */
+  max-width: 1200px; /* 可根据需要设置最大宽度 */
+  margin: 0 auto; /* 中心对齐 */
+  margin-bottom: 30px;
+}
+
+.unregister-container{
+  background-color: white;
+  padding: 20px 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.unregister-container-top{
+  text-align: left;
+  padding: 0 20px;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.unregister-add-container-wrapper{
+  display: grid;
+  justify-content: center;
+}
+
+.unregister-container table,
+.unregister-container form{
+  table-layout: fixed; /* 强制列宽 */
+  width: 100%; /* 设置表格总宽度 */
+  border-collapse: collapse; /* 合并边框，避免间隙 */
+  text-align: center;
+}
+
+.unregister-form-perRow{
+  display: flex;
+  margin: 10px 0;
+}
+
+.unregister-form-perRow label{
+  display: inline-block;
+  width: 200px;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.unregister-form-perRow input,
+.unregister-form-perRow select{
+  width: 300px;
+  padding: 7px 10px;
+  font-size: 14px;
+}
+
+.unregister-form-perRow select{
+  width: 322.50px;
+}
+
+.unregister-bottom-submit{
+  text-align: right;
+}
+
+.unregister-bottom-submit button{
+  padding: 8px 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  font-weight: 900;
+  margin-right: 50px;
+  cursor: pointer;
+}
+
+.unregister-container th, .unregister-container td {
+  word-wrap: break-word; /* 允许长单词换行 */
+  overflow-wrap: break-word; /* 支持较新浏览器的换行 */
+  white-space: normal; /* 确保内容可以换行 */
+  overflow: hidden;
+}
+
+.unregister-container th{
+  font-weight: 900;
+  padding: 10px 10px;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+}
+
+.unregister-container tbody{
+  border: 1px solid #ddd;
+}
+
+.unregister-container td {
+  height: 100%;
+  border: 1px solid #ddd;
+  padding: 3px 5px;
+  font-size: 14px;
+}
+
+.unregister-container tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.unregister-container tr:nth-child(odd) {
+  background-color: #ffffff;
+}
