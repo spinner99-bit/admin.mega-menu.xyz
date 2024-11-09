@@ -40,11 +40,6 @@ function logout() {
     window.location.href = 'login.html';
 }
 
-// 页面加载时，自动检查登录状态并加载游戏列表
-window.onload = function() {
-    checkLoginStatus();
-};
-
 // 控制侧边栏的显示和隐藏
 const menuBtn = document.querySelector('.menuBtnC');
 const sidebar = document.getElementById('sidebar');
@@ -58,56 +53,76 @@ closeSidebarBtn.addEventListener('click', () => {
     sidebar.classList.remove('active'); // 点击关闭按钮隐藏侧边栏
 });
 
-// 添加新行
-function addRow() {
-    const table = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0];
-    const newRow = table.insertRow();
-    const cell1 = newRow.insertCell(0);
-    const cell2 = newRow.insertCell(1);
-    const cell3 = newRow.insertCell(2);
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxho3OIQX_WY6nN7I7-herrkjy6Wy006Efza2UWBBdvi0uMJjcRfSQr3v4Y_jssYWDK/exec'
 
-    cell1.innerHTML = `
-        <select>
-            <option value="MB33">MB33</option>
-            <option value="VR46">VR46</option>
-            <option value="GC77">GC77</option>
-        </select>
-    `;
-    cell2.innerHTML = `<input type="number" placeholder="Mobile Number">`;
-    cell3.innerHTML = `<button onclick="deleteRow(this)">Delete</button>`;
-}
+const form = document.forms['add-player']
 
-// 删除指定行
-function deleteRow(button) {
-    const row = button.closest('tr');
-    row.remove();
-}
+    form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    .then(response => alert("Successfully added new player." ))
+    .then(() => { window.location.reload(); })
+    .catch(error => console.error('Error! Please try again', error.message))
+    })
 
-// 提交表格数据
-async function submitForm() {
-    const rows = document.querySelectorAll('#dynamicTable tbody tr');
-    const data = Array.from(rows).map(row => {
-        const selectValue = row.querySelector('select').value;
-        const inputValue = row.querySelector('input').value;
-        return { selectValue, inputValue };
+const audio = new Audio();
+audio.src = "Element/sounds.mp3";
+
+const API_URL = 'https://script.google.com/macros/s/AKfycbzI3jICJnZLStO4gmbBl41S2RCaFMODs30gz_PFZIM80q4ykd5nuMKhKRfw_jaQGTam/exec'; // 替换为您的 API URL
+
+let playerData = []; // 用于存储从 API 获取的数据
+
+// 获取数据并填充表格
+window.onload = function() {
+    checkLoginStatus(); // 检查登录状态（如果有的话）
+
+    fetch(API_URL)
+    .then(response => response.json())
+    .then(data => {
+        console.log("Fetched data:", data); // 调试：检查数据结构
+        playerData = data.playerData || []; // 确保正确引用 playerData
+        populateTable(playerData); // 填充表格
+    })
+    .catch(error => console.error('Error fetching data:', error));
+};
+
+// 填充表格函数
+function populateTable(data) {
+    const tableBody = document.getElementById('playerTable').getElementsByTagName('tbody')[0];
+    const unregisterCountSpan = document.querySelector('.unregister-container-top span'); // 获取 <span> 元素
+
+    tableBody.innerHTML = ''; // 清空表格内容
+
+    // 填充表格数据
+    data.forEach(row => {
+        const newRow = tableBody.insertRow();
+
+        // 根据 Google Sheets 的列顺序手动填充表格
+        newRow.insertCell().textContent = row[0] || ''; // Company (列 1)
+        newRow.insertCell().textContent = row[1] || ''; // Username (列 2)
+        newRow.insertCell().textContent = row[2] || ''; // Full Name (列 3)
+        newRow.insertCell().textContent = row[3] || ''; // Mobile Number (列 4)
+        newRow.insertCell().textContent = row[4] || ''; // Bank Type (列 5)
+        newRow.insertCell().textContent = row[5] || ''; // Account (列 6)
+        newRow.insertCell().textContent = row[6] || ''; // Come From (列 7)
+        newRow.insertCell().textContent = row[7] || ''; // Create At (列 8)
     });
 
-    fetch('https://script.google.com/macros/s/AKfycbwzbiTDVqnBQqXHzseZrY6Qy17g4ViTFNCAAEfURLN7K1I30aQBUo845Zui-j0BBKh0aw/exec', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ data }),
-        mode: 'no-cors' // 设置 no-cors 模式
-    });
-
-    // 通知用户保存成功
-    alert('Data submitted successfully!');
-
-    // 清空表格内容并保留表头
-    const tableBody = document.querySelector('#dynamicTable tbody');
-    tableBody.innerHTML = ''; // 清空表格的所有行
-
-    // 添加初始的一行
-    addRow();
+    // 更新<span>中的数据行数
+    unregisterCountSpan.textContent = data.length; // 设置为数据的行数
 }
+
+// 搜索功能
+function searchUsers() {
+    const searchValue = document.getElementById('searchBox').value.toLowerCase(); // 获取搜索框的值并转换为小写
+    const filteredData = playerData.filter(row =>
+        row.some(cell => 
+            cell && cell.toString().toLowerCase().includes(searchValue) // 确保 cell 是有效的字符串
+        )
+    );
+    populateTable(filteredData); // 更新表格显示
+}
+
+
+
+
