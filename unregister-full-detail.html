@@ -68,7 +68,7 @@ const form = document.forms['add-player']
 const audio = new Audio();
 audio.src = "Element/sounds.mp3";
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbxho3OIQX_WY6nN7I7-herrkjy6Wy006Efza2UWBBdvi0uMJjcRfSQr3v4Y_jssYWDK/exec'; // 替换为您的 API URL
+const API_URL = 'https://script.google.com/macros/s/AKfycbzI3jICJnZLStO4gmbBl41S2RCaFMODs30gz_PFZIM80q4ykd5nuMKhKRfw_jaQGTam/exec'; // 替换为您的 API URL
 
 let playerData = []; // 用于存储从 API 获取的数据
 
@@ -93,13 +93,19 @@ function populateTable(data) {
 
     tableBody.innerHTML = ''; // 清空表格内容
 
+    // 填充表格数据
     data.forEach(row => {
         const newRow = tableBody.insertRow();
-        // 直接访问对象属性
-        Object.values(row).forEach(cell => {
-            const newCell = newRow.insertCell();
-            newCell.textContent = cell;
-        });
+
+        // 根据 Google Sheets 的列顺序手动填充表格
+        newRow.insertCell().textContent = row[0] || ''; // Company (列 1)
+        newRow.insertCell().textContent = row[1] || ''; // Username (列 2)
+        newRow.insertCell().textContent = row[2] || ''; // Full Name (列 3)
+        newRow.insertCell().textContent = row[3] || ''; // Mobile Number (列 4)
+        newRow.insertCell().textContent = row[4] || ''; // Bank Type (列 5)
+        newRow.insertCell().textContent = row[5] || ''; // Account (列 6)
+        newRow.insertCell().textContent = row[6] || ''; // Come From (列 7)
+        newRow.insertCell().textContent = row[7] || ''; // Create At (列 8)
     });
 
     // 更新<span>中的数据行数
@@ -110,11 +116,13 @@ function populateTable(data) {
 function searchUsers() {
     const searchValue = document.getElementById('searchBox').value.toLowerCase(); // 获取搜索框的值并转换为小写
     const filteredData = playerData.filter(row =>
-        Object.values(row).some(cell => 
+        row.some(cell => 
             cell && cell.toString().toLowerCase().includes(searchValue) // 确保 cell 是有效的字符串
         )
     );
     populateTable(filteredData); // 更新表格显示
 }
+
+
 
 
