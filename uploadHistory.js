@@ -1,3 +1,11 @@
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+document.addEventListener('keydown', function (e) {
+    if (e.keyCode == 123) { // F12
+        e.preventDefault();
+    }
+});
+
 async function fetchUploadRecords() {
     const response = await fetch('https://script.google.com/macros/s/AKfycbzw8ItExJADqz0sQgjUZ89OqjSC-fK7JLN_8B86gcRoeoNG8k2aHNcH_spBzckQCP4m/exec?action=getUploadRecords');
     const data = await response.json();
