@@ -40,11 +40,97 @@ function logout() {
     window.location.href = 'login.html';
 }
 
+// 获取元素
+const formOverlay = document.getElementById('formOverlay');
+const userForm = document.getElementById('userForm');
+const submitButton = document.getElementById('submitButton');
+const addUserMessage = document.getElementById('addUserMessage');
+
+// 提交表单时，调用注册用户的函数
+userForm.addEventListener('submit', async function (e) {
+    e.preventDefault(); // 阻止表单默认提交
+
+    // 自动生成 Username
+     const username = 'user_' + Math.floor(Math.random() * 100000);
+
+    // 获取表单数据
+    const password = document.getElementById('registerPassword').value.trim();
+    const fullName = document.getElementById('registerFullName').value.trim();
+    const wanumber = document.getElementById('registerWaNumber').value.trim();
+
+    // 数据验证（根据需要调整）
+    if (!username || !password) {
+        addUserMessage.textContent = 'Username and Password are required!';
+        return;
+    }
+
+    // 调用 Apps Script 来处理用户注册
+    const response = await fetch('https://script.google.com/macros/s/AKfycbzKNejXZNkbN7uJH87Yaa3VqGfx0gUE77WNB1Ibe1rrK9g_oCOjtVgkAQ6Ot_PfLCWz/exec', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: new URLSearchParams({
+            action: 'register',
+            username: username,
+            password: password,
+            fullName: fullName,
+            wanumber: wanumber,
+          })
+    });
+
+    const data = await response.json();
+
+    // 处理响应数据
+    if (data.success) {
+        // 注册成功后，关闭表单并清空表单
+        formOverlay.style.display = 'none';
+        userForm.reset();
+        addUserMessage.textContent = 'Successfully Add User!'; // 成功提示信息
+
+        // 调用 fetchData() 函数来获取并显示所有用户
+        fetchData();
+    } else {
+        // 注册失败，显示错误信息
+        addUserMessage.textContent = data.message;
+    }
+});
+
+// 显示表单
+const addUserButton = document.getElementById('addUser');
+addUserButton.addEventListener('click', () => {
+    formOverlay.style.display = 'block'; // 显示表单
+});
+
+// 关闭表单
+const closeFormButton = document.getElementById('closeForm');
+closeFormButton.addEventListener('click', () => {
+    formOverlay.style.display = 'none'; // 隐藏表单
+});
+
+
 const scriptURL = 'https://script.google.com/macros/s/AKfycbzIBk0bCHMjDX0P2dSNzvJyJFMzaHOM2Q4R_Rk8PdfpHzRcY1R4BifGGZ1zTb0swUQa/exec';
 
 async function fetchData() {
     const response = await fetch(scriptURL + '?action=getUsersData');
     let data = await response.json();
+
+    // 假设第七列 (index 6) 是注册日期列，第六列 (index 5) 是最后登录日期列
+
+    // 计算总用户数
+    const totalUserCount = data.length;
+
+    // 计算今天注册的用户数
+    const today = new Date().toISOString().split('T')[0]; // 获取今天的日期，格式为 'yyyy-mm-dd'
+    const newUserTodayCount = data.filter(row => new Date(row[6]).toISOString().split('T')[0] === today).length;
+
+    // 计算今天登录的用户数
+    const lastLoginTodayCount = data.filter(row => new Date(row[5]).toISOString().split('T')[0] === today).length;
+
+    // 更新网页上的统计数字
+    document.getElementById('countUserList').textContent = totalUserCount;
+    document.getElementById('newUserTodayCount').textContent = newUserTodayCount;
+    document.getElementById('lastLoginTodayCount').textContent = lastLoginTodayCount;
 
     // 假设第七列 (index 6) 是日期列，对数据按第七列时间进行降序排序
     data.sort((a, b) => new Date(b[6]) - new Date(a[6])); 
@@ -115,8 +201,8 @@ async function fetchData() {
         tr.appendChild(saveTd);
         tbody.appendChild(tr);
     });
-    
 }
+
 
 // 日期格式化函数
 function formatDateTime(date) {
