@@ -268,6 +268,74 @@ function sortTable(field) {
     });
 }
 
+// 获取元素
+const formOverlay = document.getElementById('formOverlay');
+const userForm = document.getElementById('userForm');
+const submitButton = document.getElementById('submitButton');
+const addUserMessage = document.getElementById('addUserMessage');
+
+// 提交表单时，调用注册用户的函数
+userForm.addEventListener('submit', async function (e) {
+    e.preventDefault(); // 阻止表单默认提交
+
+    // 获取表单数据
+    const username = document.getElementById('registerUsername').value.trim();
+    const password = document.getElementById('registerPassword').value.trim();
+    const fullName = document.getElementById('registerFullName').value.trim();
+    const wanumber = document.getElementById('registerWaNumber').value.trim();
+    const instaID = document.getElementById('registerInstagramID').value.trim();
+
+    // 数据验证（根据需要调整）
+    if (!username || !password) {
+        addUserMessage.textContent = 'Username and Password are required!';
+        return;
+    }
+
+    // 调用 Apps Script 来处理用户注册
+    const response = await fetch('https://script.google.com/macros/s/AKfycbzasmeVkZVhxYl4sTGRBqPmnC39CI3aUmY3jWgEF6ZVDJpTdKvKtDqD3CqcI-pD7ZGO/exec', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: new URLSearchParams({
+            action: 'register',
+            username: username,
+            password: password,
+            fullName: fullName,
+            wanumber: wanumber,
+            instaID: instaID
+          })
+    });
+
+    const data = await response.json();
+
+    // 处理响应数据
+    if (data.success) {
+        // 注册成功后，关闭表单并清空表单
+        formOverlay.style.display = 'none';
+        userForm.reset();
+        addUserMessage.textContent = 'Successfully Add User!'; // 成功提示信息
+
+        // 调用 fetchAllUsers() 函数来获取并显示所有用户
+        fetchAllUsers();
+    } else {
+        // 注册失败，显示错误信息
+        addUserMessage.textContent = data.message;
+    }
+});
+
+// 显示表单
+const addUserButton = document.getElementById('addUser');
+addUserButton.addEventListener('click', () => {
+    formOverlay.style.display = 'block'; // 显示表单
+});
+
+// 关闭表单
+const closeFormButton = document.getElementById('closeForm');
+closeFormButton.addEventListener('click', () => {
+    formOverlay.style.display = 'none'; // 隐藏表单
+});
+
 // 检查用户登录状态
 function checkLoginStatus() {
     const username = localStorage.getItem('username');
