@@ -170,11 +170,13 @@ header{
 
 .userlist-add-user-btn-cover button{
   padding: 5px 15px;
-  background-color: #fbbc04;
+  background-color: #007bff;
+  color: white;
   border: none;
   border-radius: 5px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 900;
+  cursor: pointer;
 }
 
 .userlist-left-contain{
@@ -201,16 +203,16 @@ header{
 }
 
 .overlay {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.7); /* 半透明黑色背景 */
-  z-index: 1000; /* 确保在最上层 */
   display: flex;
   justify-content: center;
   text-align: center;
+  align-content: center;
   align-items: center;
 }
 
@@ -220,8 +222,10 @@ header{
   padding: 20px 40px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  z-index: 1001; /* 确保表单高于遮罩 */
   width: 400px;
+  justify-self: center;
+  display: grid;
+  justify-content: center;
 }
 
 .form-popup h2{
@@ -257,6 +261,7 @@ header{
   font-size: 16px;
   border-radius: 20px;
   border: none;
+  cursor: pointer;
 }
 
 #closeForm{
@@ -265,7 +270,8 @@ header{
 }
 
 .userList-addUser-submit{
-  background-color: #fbbc04;
+  background-color: #007bff;
+  color: white;
 }
 
 .userList-table-wrapper{
@@ -339,6 +345,7 @@ header{
 .userlise-data select{
   background-color: transparent;
   color: black;
+  font-weight: 900;
 }
 
 .userlise-data select:disabled {
@@ -354,14 +361,15 @@ header{
 }
 
 .userlise-data option{
-  background-color: #fbbc04;
-  color: black;
+  background-color: #007bff;
+  color: white;
   text-align: center;
+  font-weight: 900;
 }
 
 .edit-save-button {
-  background-color: #fbbc04;
-  color: black;
+  background-color: #007bff;
+  color: white;
   border: none;
   text-align: center;
   text-decoration: none;
