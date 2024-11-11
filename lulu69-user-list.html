@@ -56,6 +56,21 @@
 
 <div class="fullPage-wrapper">
 
+    <div class="userlist-report">
+        <div class="userlist-per-report">
+          <p>Total Members Count</p>
+          <span id="countUserList">0</span>
+        </div>
+        <div class="userlist-per-report">
+          <p>Today Register Members</p>
+          <span id="newUserTodayCount">0</span>
+        </div>
+        <div class="userlist-per-report">
+          <p>Today Active Members</p>
+          <span id="lastLoginTodayCount">0</span>
+        </div>
+    </div>
+
 <div class="lulu69-userList-wrapper">
 
     <!-- 搜索框 -->
@@ -74,11 +89,9 @@
             <div id="registerForm" class="form-popup">
               <h2>Add New User</h2>
               <form id="userForm">
-                <input type="text" id="registerUsername" placeholder="Username" required><br>
                 <input type="text" id="registerPassword" placeholder="Password" required><br>
                 <input type="text" id="registerFullName" placeholder="Full Name"><br>
                 <input type="number" id="registerWaNumber" placeholder="Wasap Number"><br>
-                <input type="text" id="registerInstagramID" placeholder="Instagram ID"><br>
                 <div class="userlist-addUser-formBtn">
                   <button type="button" id="closeForm">Close</button>
                   <button type="submit" id="submitButton" class="userList-addUser-submit">Add</button>
