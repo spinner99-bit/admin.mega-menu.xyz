@@ -9,7 +9,6 @@ body {
   min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 900;
-  padding: 0 30px;
 }
 
 header{
@@ -119,6 +118,10 @@ header{
 
 .sidebar a:hover {
   background-color: #555;
+}
+
+.fullPage-wrapper{
+  padding: 0 30px;
 }
 
 .userlist-report{
@@ -947,4 +950,140 @@ header{
 
 .unregister-container tr:nth-child(odd) {
   background-color: #ffffff;
+}
+
+.loading-icon{
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+}
+
+.loading-icon i{
+  text-align: center;
+  color: white;
+  font-size: 300px;
+}
+
+.bx-loader-circle{
+  -webkit-animation: spin 3s linear infinite;
+	-moz-animation: spin 3s linear infinite;
+	animation: spin 3s linear infinite;
+}
+
+.lulu69-userList-wrapper{
+  background-color: white;
+  padding: 30px;
+}
+
+.lulu69-userList{
+  table-layout: fixed; /* 强制列宽 */
+  width: 100%; /* 设置表格总宽度 */
+  border-collapse: collapse; /* 合并边框，避免间隙 */
+}
+
+.lulu69-userList td{
+  height: 100%;
+  border: 1px solid #ddd;
+  padding: 2px 5px;
+}
+
+.lulu69-userList th{
+  background-color: #f2f2f2;
+  color: black;
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 900;
+}
+
+.lulu69-userList th, .lulu69-userList td {
+  text-align: center;
+  align-items: center;
+}
+
+.lulu69-userList tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.lulu69-userList tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.lulu69-userList textarea {
+  width: 100%;
+  background-color: transparent;
+  color: black;
+  height: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  resize: none;
+  border: none;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 900;
+}
+
+.lulu69-userList select{
+  background-color: transparent;
+  color: black;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 900;
+}
+
+.lulu69-userList button{
+  padding: 5px 10px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 900;
+}
+
+.lulu69-userList-userID{
+  width: 12.5%;
+}
+
+.lulu69-userList-password{
+  width: 12.5%;
+}
+
+.lulu69-userList-name{
+  width: 20%;
+}
+
+.lulu69-userList-phone{
+  width: 12.5%;
+}
+
+.lulu69-userList-wallet{
+  width: 7.5%;
+}
+
+.lulu69-userList-lastLogin,
+.lulu69-userList-createAt{
+  width: 12.5%;
+}
+
+.lulu69-userList-status{
+  width: 12%;
+}
+
+.lulu69-userList-action{
+  width: 8%;
 }
