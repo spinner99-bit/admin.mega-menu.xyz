@@ -1,3 +1,11 @@
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+document.addEventListener('keydown', function (e) {
+    if (e.keyCode == 123) { // F12
+        e.preventDefault();
+    }
+});
+
 let currentSortField = 'registrationTime'; // 默认排序字段为 'Created At'
 let currentSortOrder = 'desc'; // 默认排序顺序为降序
 
