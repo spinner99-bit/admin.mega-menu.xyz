@@ -203,7 +203,7 @@ async function fetchData() {
         
         const saveTd = document.createElement('td');
         const saveButton = document.createElement('button');
-        saveButton.textContent = 'Save';
+        saveButton.innerHTML = "<i class='bx bxs-save'></i>";
         saveButton.addEventListener('click', () => saveRow(rowIndex + 2));
         saveTd.appendChild(saveButton);
         tr.appendChild(saveTd);
