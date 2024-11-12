@@ -1055,12 +1055,12 @@ header{
 }
 
 .lulu69-userList button{
-  padding: 5px 10px;
-  background-color: #007bff;
+  color: #007bff;
+  background-color: transparent;
+  font-size: 28px;
   border: none;
-  border-radius: 10px;
-  color: white;
   font-weight: 900;
+  cursor: pointer;
 }
 
 .lulu69-userList-userID{
@@ -1089,9 +1089,9 @@ header{
 }
 
 .lulu69-userList-status{
-  width: 12%;
+  width: 9%;
 }
 
 .lulu69-userList-action{
-  width: 8%;
+  width: 6%;
 }
