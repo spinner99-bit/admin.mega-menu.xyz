@@ -124,6 +124,13 @@ header{
   padding: 0 30px;
 }
 
+/* 调整图片容器在小屏幕上的尺寸 */
+@media (max-width: 768px) {
+  .fullPage-wrapper {
+    padding: 0;
+  }
+}
+
 .userlist-report{
   display: flex;
   justify-content: space-evenly;
