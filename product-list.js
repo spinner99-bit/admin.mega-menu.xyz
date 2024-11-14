@@ -1,4 +1,4 @@
-document.addEventListener('contextmenu', event => event.preventDefault());
+//document.addEventListener('contextmenu', event => event.preventDefault());
 
 document.addEventListener('keydown', function (e) {
     if (e.keyCode == 123) { // F12
@@ -48,11 +48,6 @@ function logout() {
     window.location.href = 'login.html';
 }
 
-// 页面加载时，自动检查登录状态并加载游戏列表
-window.onload = function() {
-    checkLoginStatus();
-};
-
 // 控制侧边栏的显示和隐藏
 const menuBtn = document.querySelector('.menuBtnC');
 const sidebar = document.getElementById('sidebar');
@@ -65,3 +60,31 @@ menuBtn.addEventListener('click', () => {
 closeSidebarBtn.addEventListener('click', () => {
     sidebar.classList.remove('active'); // 点击关闭按钮隐藏侧边栏
 });
+
+async function loadOptions() {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbz0RhbfORVEizH4uRROHAWVZNJirHagYi8nTlN36kMdbCsmoLObGqAcS2ze6NVeu5gWZg/exec");
+    const data = await response.json();
+    const selectElements = document.getElementsByName("productCategory");
+
+    selectElements.forEach(select => {
+        data.options.forEach(option => {
+            const optionElement = document.createElement("option");
+            optionElement.value = option;
+            optionElement.textContent = option;
+            select.appendChild(optionElement);
+        });
+    });
+}
+
+function addRow() {
+    const table = document.getElementById("productTable");
+    const newRow = table.insertRow();
+    newRow.innerHTML = `
+        <td><input type="text" name="productName" required></td>
+        <td><select name="productCategory" required></select></td>
+        <td><input type="number" name="productPrice" required></td>
+        <td><input type="url" name="productLink" required></td>
+        <td><input type="file" name="productPhoto" accept="image/*" required></td>
+    `;
+    loadOptions();  // 为新添加的行加载选项
+}
