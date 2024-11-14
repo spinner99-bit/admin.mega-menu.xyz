@@ -58,29 +58,31 @@
     <div class="transaction-add-wrapper">
         <div class="transaction-add-container">
             <div class="transaction-add-top">
-                <p>Add New Product</p>
+                <p>Add New Products</p>
             </div>
             <form id="productForm">
                 <table id="productTable">
                     <tr>
-                        <th>产品名称</th>
-                        <th>产品种类</th>
-                        <th>产品价格</th>
-                        <th>产品链接</th>
-                        <th>产品照片</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Mega Link</th>
+                        <th>Image</th>
                     </tr>
                     <tr>
                         <td><input type="text" name="productName" required></td>
                         <td>
                             <select name="productCategory"></select>
                         </td>
-                        <td><input type="number" name="productPrice" required></td>
+                        <td><input type="text" name="productPrice" required></td>
                         <td><input type="url" name="productLink" required></td>
                         <td><input type="file" name="productPhoto" accept="image/*" required></td>
                     </tr>
                 </table>
-                <button type="button" onclick="addRow()">添加产品</button>
-                <button type="submit">提交</button>
+                <div class="productList-add-button">
+                    <button type="button" onclick="addRow()">Add Row</button>
+                    <button type="submit">Submit</button>
+                </div>
             </form>
         </div>
     </div>
@@ -88,7 +90,7 @@
     <div class="pendingTransaction-Wrapper">
         <div class="transaction-Container">
             <div class="transaction-list-top">
-                <p>Transaction List</p>
+                <p>Products List</p>
             </div>
             <div class="transaction-Search">
                 <select id="rowsPerPage" onchange="loadPendingTransactions()">
@@ -103,14 +105,14 @@
             <table id="productList">
                 <thead>
                     <tr>
-                        <th>产品名称</th>
-                        <th>产品种类</th>
-                        <th>产品价格</th>
-                        <th>产品链接</th>
-                        <th>产品照片</th>
-                        <th>Status</th>
-                        <th>上传时间</th>
-                        <th>操作</th> <!-- 新增操作列 -->
+                        <th class="productList-Name">Name</th>
+                        <th class="productList-Category">Category</th>
+                        <th class="productList-Price">Price</th>
+                        <th class="productList-Link">Mega Link</th>
+                        <th class="productList-Image">Image</th>
+                        <th class="productList-Status">Status</th>
+                        <th class="productList-Time">Upload Time</th>
+                        <th class="productList-Action">Action</th> <!-- 新增操作列 -->
                     </tr>
                 </thead>
                 <tbody></tbody>
