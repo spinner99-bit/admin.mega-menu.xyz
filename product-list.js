@@ -82,9 +82,10 @@ function addRow() {
     newRow.innerHTML = `
         <td><input type="text" name="productName" required></td>
         <td><select name="productCategory" required></select></td>
-        <td><input type="number" name="productPrice" required></td>
+        <td><input type="text" name="productPrice" required></td>
         <td><input type="url" name="productLink" required></td>
         <td><input type="file" name="productPhoto" accept="image/*" required></td>
     `;
     loadOptions();  // 为新添加的行加载选项
 }
+
