@@ -54,47 +54,75 @@
 </div>
 
 <div class="fullPage-wrapper">
-    <h1>批量上传产品</h1>
-    <form id="productForm">
-        <table id="productTable">
-            <tr>
-                <th>产品名称</th>
-                <th>产品种类</th>
-                <th>产品价格</th>
-                <th>产品链接</th>
-                <th>产品照片</th>
-            </tr>
-            <tr>
-                <td><input type="text" name="productName" required></td>
-                <td>
-                    <select name="productCategory"></select>
-                </td>
-                <td><input type="number" name="productPrice" required></td>
-                <td><input type="url" name="productLink" required></td>
-                <td><input type="file" name="productPhoto" accept="image/*" required></td>
-            </tr>
-        </table>
-        <button type="button" onclick="addRow()">添加产品</button>
-        <button type="submit">提交</button>
-    </form>
-</div>
 
-<h1>产品信息展示</h1>
-<table id="productList">
-    <thead>
-        <tr>
-            <th>产品名称</th>
-            <th>产品种类</th>
-            <th>产品价格</th>
-            <th>产品链接</th>
-            <th>产品照片</th>
-            <th>Status</th>
-            <th>上传时间</th>
-            <th>操作</th> <!-- 新增操作列 -->
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+    <div class="transaction-add-wrapper">
+        <div class="transaction-add-container">
+            <div class="transaction-add-top">
+                <p>Add New Product</p>
+            </div>
+            <form id="productForm">
+                <table id="productTable">
+                    <tr>
+                        <th>产品名称</th>
+                        <th>产品种类</th>
+                        <th>产品价格</th>
+                        <th>产品链接</th>
+                        <th>产品照片</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="productName" required></td>
+                        <td>
+                            <select name="productCategory"></select>
+                        </td>
+                        <td><input type="number" name="productPrice" required></td>
+                        <td><input type="url" name="productLink" required></td>
+                        <td><input type="file" name="productPhoto" accept="image/*" required></td>
+                    </tr>
+                </table>
+                <button type="button" onclick="addRow()">添加产品</button>
+                <button type="submit">提交</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="pendingTransaction-Wrapper">
+        <div class="transaction-Container">
+            <div class="transaction-list-top">
+                <p>Transaction List</p>
+            </div>
+            <div class="transaction-Search">
+                <select id="rowsPerPage" onchange="loadPendingTransactions()">
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="1000">1000</option>
+                    <option value="all">All</option>
+                </select>
+                <input type="search" id="searchTransaction" placeholder="Search..." oninput="filterTransactions()">
+            </div>
+            <table id="productList">
+                <thead>
+                    <tr>
+                        <th>产品名称</th>
+                        <th>产品种类</th>
+                        <th>产品价格</th>
+                        <th>产品链接</th>
+                        <th>产品照片</th>
+                        <th>Status</th>
+                        <th>上传时间</th>
+                        <th>操作</th> <!-- 新增操作列 -->
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div class="transaction-page-select">
+                <div></div>
+                <div id="pagination" class="pagination"></div> <!-- 分页按钮容器 -->
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <!-- 图片弹窗 -->
 <div id="imageModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center;">
