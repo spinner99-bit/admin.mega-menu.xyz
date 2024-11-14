@@ -89,6 +89,19 @@ function closeImage() {
 // 页面点击空白区域时关闭弹窗
 document.getElementById("imageModal").addEventListener("click", closeImage);
 
+let allData = []; // 存储所有数据
+let currentPage = 1; // 当前页码
+let rowsPerPage = 10; // 每页显示的行数
+
+// 格式化日期
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    const formattedDate = date.toLocaleString('en-GB', options);
+    return formattedDate.replace(/\//g, '-').replace(',', '');
+}
+
+// 获取数据
 async function fetchData() {
     try {
         const response = await fetch("https://script.google.com/macros/s/AKfycbzCdsSEnvNpIftrF-71Y1YXslrcMbKIeuWkEogQFP4v7PWklA4ah81dxeKGE3vJj0RPfA/exec?type=productData");
@@ -97,49 +110,9 @@ async function fetchData() {
         console.log("Fetched data:", result); // 确认数据结构是否正确
 
         if (result.data && result.data.length > 0) {
-            const tableBody = document.getElementById("productList").querySelector("tbody");
-            tableBody.innerHTML = "";
-
-            result.data.forEach((row, rowIndex) => {
-                const tr = document.createElement("tr");
-
-                // 创建每一列数据，按照 Google Sheets 的顺序
-                row.forEach((cell, index) => {
-                    const td = document.createElement("td");
-
-                    // 图片列（产品照片）
-                    if (cell && typeof cell === 'string' && cell.startsWith("http") && index === 4) { 
-                        const img = document.createElement("img");
-                        img.src = cell;
-                        img.alt = "产品照片";
-                        img.style.cursor = "pointer"; // 设置鼠标指针为点击状态
-                        img.onclick = () => showImage(cell); // 点击图片时弹出
-                        td.appendChild(img);
-                    } else {
-                        // 编辑列：输入框或文本框
-                        td.innerHTML = `<input type="text" value="${cell}" />`;
-                    }
-                    tr.appendChild(td);
-                });
-
-                // 添加保存按钮列
-                const saveTd = document.createElement("td");
-                const saveButton = document.createElement("button");
-                saveButton.textContent = "保存";
-                saveButton.onclick = () => saveProduct(row[0], tr, rowIndex); // 传入产品名称和行索引
-                saveTd.appendChild(saveButton);
-                tr.appendChild(saveTd);
-
-                // 添加删除按钮列
-                const deleteTd = document.createElement("td");
-                const deleteButton = document.createElement("button");
-                deleteButton.textContent = "删除";
-                deleteButton.onclick = () => deleteProduct(row[0], rowIndex); // 根据产品名称删除
-                deleteTd.appendChild(deleteButton);
-                tr.appendChild(deleteTd);
-
-                tableBody.appendChild(tr);
-            });
+            allData = result.data; // 保存所有数据
+            renderTable(allData); // 渲染数据
+            setupPagination(allData); // 设置分页
         } else {
             alert("没有数据可显示");
         }
@@ -149,11 +122,132 @@ async function fetchData() {
     }
 }
 
+// 渲染表格数据
+function renderTable(data) {
+    const tableBody = document.getElementById("productList").querySelector("tbody");
+    tableBody.innerHTML = "";
+
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = rowsPerPage === 'all' ? data.length : startIndex + rowsPerPage;
+
+    const pagedData = data.slice(startIndex, endIndex);
+
+    pagedData.forEach((row, rowIndex) => {
+        const tr = document.createElement("tr");
+
+        row.forEach((cell, index) => {
+            const td = document.createElement("td");
+
+            if (cell && typeof cell === 'string' && cell.startsWith("http") && index === 4) {
+                const img = document.createElement("img");
+                img.src = cell;
+                img.alt = "产品照片";
+                img.style.cursor = "pointer";
+                img.onclick = () => showImage(cell);
+                td.appendChild(img);
+            } else if (index === 0) {
+                td.textContent = formatDate(cell); // 格式化日期
+            } else {
+                td.innerHTML = `<textarea rows="3" cols="20">${cell}</textarea>`;
+            }
+            tr.appendChild(td);
+        });
+
+        const actionTd = document.createElement("td");
+        const actionDiv = document.createElement("div");
+
+        const saveButton = document.createElement("button");
+        saveButton.innerHTML = `<i class='bx bxs-save'></i>Update`;
+        saveButton.onclick = () => saveProduct(row[0], tr, rowIndex);
+        actionDiv.appendChild(saveButton);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = "<i class='bx bxs-trash'></i>删除";
+        deleteButton.onclick = () => deleteProduct(row[0], rowIndex);
+        actionDiv.appendChild(deleteButton);
+
+        actionTd.appendChild(actionDiv);
+        tr.appendChild(actionTd);
+
+        tableBody.appendChild(tr);
+    });
+
+    // 更新行数显示
+    updateRowCountDisplay(startIndex + 1, Math.min(endIndex, data.length), data.length);
+}
+
+// 设置分页按钮
+function setupPagination(data) {
+    const pagination = document.getElementById("pagination");
+    pagination.innerHTML = '';
+
+    const pageCount = Math.ceil(data.length / rowsPerPage);
+    for (let i = 1; i <= pageCount; i++) {
+        const pageButton = document.createElement("button");
+        pageButton.textContent = i;
+
+        // 给每个分页按钮添加点击事件
+        pageButton.onclick = () => goToPage(i, pageButton);
+
+        // 如果是当前页，给按钮添加 "active" 类
+        if (i === currentPage) {
+            pageButton.classList.add("active");
+        }
+
+        pagination.appendChild(pageButton);
+    }
+}
+
+// 跳转到指定页，并更新页面按钮样式
+function goToPage(page, clickedButton) {
+    currentPage = page;
+    renderTable(allData);
+
+    // 移除所有按钮的 active 类
+    const buttons = document.querySelectorAll(".pagination button");
+    buttons.forEach(button => button.classList.remove("active"));
+
+    // 给当前点击的按钮添加 active 类
+    clickedButton.classList.add("active");
+}
+
+// 搜索功能
+function filterTransactions() {
+    const searchValue = document.getElementById("searchTransaction").value.toLowerCase(); // 获取搜索框的值并转为小写
+    const filteredData = allData.filter(row => 
+        row.some(cell => 
+            cell.toString().toLowerCase().includes(searchValue) // 检查每个单元格是否包含搜索内容
+        )
+    );
+    renderTable(filteredData); // 重新渲染表格
+}
+
+// 更新每页行数
+function loadPendingTransactions() {
+    const rowsPerPageSelect = document.getElementById("rowsPerPage");
+    rowsPerPage = rowsPerPageSelect.value;
+    renderTable(allData); // 重新渲染表格
+}
+
+// 更新行数显示
+function updateRowCountDisplay(start, end, total) {
+    const rowCountDisplay = document.querySelector('.transaction-page-select div:first-child');
+    rowCountDisplay.textContent = `Showing ${start}-${end} of ${total}`;
+}
+
+// 初始化数据加载
+fetchData(); // 初始化数据加载
+
+// 监听搜索框的输入事件
+document.getElementById("searchTransaction").addEventListener("input", filterTransactions);
+
+// 监听行数选择框的改变事件
+document.getElementById("rowsPerPage").addEventListener("change", loadPendingTransactions);
 
 
 // 处理保存按钮点击事件
 async function saveProduct(productName, tr, rowIndex) {
-    const inputs = tr.querySelectorAll("input");
+    const inputs = tr.querySelectorAll("textarea");
     const updatedRow = Array.from(inputs).map(input => input.value);
 
     // 明确指明每个字段的顺序，并确保 status 和 uploadTime 对应正确的列
@@ -196,8 +290,6 @@ async function saveProduct(productName, tr, rowIndex) {
     }
 }
 
-
-
 // 处理删除按钮点击事件
 async function deleteProduct(productName, rowIndex) {
     const confirmDelete = confirm(`确定要删除 ${productName} 吗？`);
@@ -227,7 +319,6 @@ async function deleteProduct(productName, rowIndex) {
         }
     }
 }
-
 
 // 加载选项到下拉菜单
 window.onload = function() {
