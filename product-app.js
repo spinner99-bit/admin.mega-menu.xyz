@@ -192,12 +192,12 @@ function renderTable(data) {
         const actionDiv = document.createElement("div");
 
         const saveButton = document.createElement("button");
-        saveButton.innerHTML = `<i class='bx bxs-save'></i>Update`;
+        saveButton.innerHTML = `<i class='bx bxs-save'></i>`;
         saveButton.onclick = () => saveProduct(row[0], tr, rowIndex);
         actionDiv.appendChild(saveButton);
 
         const deleteButton = document.createElement("button");
-        deleteButton.innerHTML = "<i class='bx bxs-trash'></i>删除";
+        deleteButton.innerHTML = "<i class='bx bxs-trash'></i>";
         deleteButton.onclick = () => deleteProduct(row[0], rowIndex);
         actionDiv.appendChild(deleteButton);
 
