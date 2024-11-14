@@ -65,12 +65,18 @@ document.getElementById("productForm").addEventListener("submit", async (event) 
 
         const result = await response.json();
         alert(result.message || "产品信息已成功提交！");
+
+        // 重置表单
+        document.getElementById("productForm").reset();
+
+        // 刷新数据
         fetchData();
     } catch (error) {
         console.error("提交错误：", error);
         alert("提交失败，请稍后再试！");
     }
 });
+
 
 // 弹出和关闭图片的函数
 function showImage(src) {
