@@ -1003,23 +1003,27 @@ header{
   border-collapse: collapse; /* 合并边框，避免间隙 */
 }
 
-.lulu69-userList td{
+.lulu69-userList td,
+#productList td{
   height: 100%;
   border: 1px solid #ddd;
   padding: 2px 5px;
+  align-items: center;
+  align-content: center;
 }
 
 .lulu69-userList th{
   background-color: #f2f2f2;
   color: black;
-  padding: 5px;
+  padding: 10px 0;
   font-size: 14px;
   border: 1px solid #ddd;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 900;
 }
 
-.lulu69-userList th, .lulu69-userList td {
+.lulu69-userList th, .lulu69-userList td,
+#productList th, #productList td {
   text-align: center;
   align-items: center;
 }
@@ -1028,11 +1032,20 @@ header{
   background-color: #f2f2f2;
 }
 
+#productList tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
 .lulu69-userList tr:nth-child(odd) {
   background-color: #ffffff;
 }
 
-.lulu69-userList textarea {
+#productList tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.lulu69-userList textarea,
+#productList textarea {
   width: 100%;
   background-color: transparent;
   color: black;
@@ -1049,7 +1062,8 @@ header{
   font-weight: 900;
 }
 
-.lulu69-userList select{
+.lulu69-userList select,
+#productList select{
   background-color: transparent;
   color: black;
   width: 100%;
@@ -1061,11 +1075,38 @@ header{
   font-weight: 900;
 }
 
-.lulu69-userList button{
+#productList img{
+  max-height: 100px;
+  margin: auto 0;
+}
+
+.lulu69-userList button,
+#productList button{
   color: #007bff;
   background-color: transparent;
   font-size: 28px;
   border: none;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+#productList .bxs-trash{
+  color: red;
+}
+
+.productList-add-button{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+  margin-top: 20px;
+}
+
+.productList-add-button button{
+  padding: 7px 15px;
+  border-radius: 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
   font-weight: 900;
   cursor: pointer;
 }
@@ -1101,4 +1142,33 @@ header{
 
 .lulu69-userList-action{
   width: 6%;
+}
+
+.productList-Name,
+.productList-Category{
+  width: 12%;
+}
+
+.productList-Price{
+  width: 7%;
+}
+
+.productList-Link{
+  width: 28%;
+}
+
+.productList-Image{
+  width: 10%;
+}
+
+.productList-Status{
+  width: 10%;
+}
+
+.productList-Time{
+  width: 10%;
+}
+
+.productList-Action{
+  width: 10%;
 }
