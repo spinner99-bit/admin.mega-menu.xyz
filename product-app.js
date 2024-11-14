@@ -177,7 +177,7 @@ function renderTable(data) {
             // 其它列的内容
             else {
                 const textarea = document.createElement("textarea");
-                textarea.rows = 3;
+                textarea.rows = 5;
                 textarea.cols = 20;
                 textarea.value = cell;
                 textarea.style.color = rowColor; // 设置字体颜色
