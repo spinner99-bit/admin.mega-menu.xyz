@@ -135,21 +135,56 @@ function renderTable(data) {
     pagedData.forEach((row, rowIndex) => {
         const tr = document.createElement("tr");
 
+        // 检查状态并决定字体颜色
+        const status = row[5]; // 假设 Status 是第 6 列 (索引5)
+        const rowColor = status === 'Inactive' ? 'red' : 'black'; // 状态为 Inactive 时字体颜色为红色
+
         row.forEach((cell, index) => {
             const td = document.createElement("td");
 
+            // 处理图片列
             if (cell && typeof cell === 'string' && cell.startsWith("http") && index === 4) {
                 const img = document.createElement("img");
                 img.src = cell;
-                img.alt = "产品照片";
+                img.alt = "Image";
                 img.style.cursor = "pointer";
                 img.onclick = () => showImage(cell);
                 td.appendChild(img);
-            } else if (index === 0) {
-                td.textContent = formatDate(cell); // 格式化日期
-            } else {
-                td.innerHTML = `<textarea rows="3" cols="20">${cell}</textarea>`;
+            } 
+            // 处理状态列，添加下拉选择框
+            else if (index === 5) { // 假设Status是第6列 (索引5)
+                const select = document.createElement("select");
+                const activeOption = document.createElement("option");
+                activeOption.value = "Active";
+                activeOption.textContent = "Active";
+                const inactiveOption = document.createElement("option");
+                inactiveOption.value = "Inactive";
+                inactiveOption.textContent = "Inactive";
+
+                select.appendChild(activeOption);
+                select.appendChild(inactiveOption);
+
+                select.value = cell; // 设置当前状态值
+
+                // 监听状态变化
+                select.onchange = () => updateStatus(row[0], select.value);
+
+                // 设置字体颜色
+                select.style.color = rowColor;
+
+                td.appendChild(select);
+            } 
+            // 其它列的内容
+            else {
+                const textarea = document.createElement("textarea");
+                textarea.rows = 3;
+                textarea.cols = 20;
+                textarea.value = cell;
+                textarea.style.color = rowColor; // 设置字体颜色
+
+                td.appendChild(textarea);
             }
+
             tr.appendChild(td);
         });
 
@@ -175,6 +210,7 @@ function renderTable(data) {
     // 更新行数显示
     updateRowCountDisplay(startIndex + 1, Math.min(endIndex, data.length), data.length);
 }
+
 
 // 设置分页按钮
 function setupPagination(data) {
@@ -248,7 +284,12 @@ document.getElementById("rowsPerPage").addEventListener("change", loadPendingTra
 // 处理保存按钮点击事件
 async function saveProduct(productName, tr, rowIndex) {
     const inputs = tr.querySelectorAll("textarea");
+    const selects = tr.querySelectorAll("select"); // 获取所有的 select 元素
     const updatedRow = Array.from(inputs).map(input => input.value);
+    
+    // 假设状态是第 6 列，因此 select 状态列应该是第 5 个
+    const statusSelect = selects[0];  // 假设状态是第一个 select 元素
+    const status = statusSelect ? statusSelect.value : 'Active'; // 获取状态的值，默认为 'Active'
 
     // 明确指明每个字段的顺序，并确保 status 和 uploadTime 对应正确的列
     const updatedData = {
@@ -256,8 +297,8 @@ async function saveProduct(productName, tr, rowIndex) {
         productCategory: updatedRow[1],    // 产品种类 (第 2 列)
         productPrice: updatedRow[2],       // 产品价格 (第 3 列)
         productLink: updatedRow[3],        // 产品链接 (第 4 列)
-        status: updatedRow[4] === '' ? 'Active' : updatedRow[4], // 状态 (第 6 列，空时默认为 "Active")
-        uploadTime: updatedRow[5] === '' ? new Date().toISOString() : updatedRow[5] // 上传时间 (第 7 列，空时默认为当前时间)
+        status: status,                    // 状态 (第 6 列)
+        uploadTime: updatedRow[4] === '' ? new Date().toISOString() : updatedRow[4] // 上传时间 (第 7 列，空时默认为当前时间)
     };
 
     // 打印更新后的数据
