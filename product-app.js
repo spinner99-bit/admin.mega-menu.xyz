@@ -118,7 +118,7 @@ function formatDate(dateString) {
 // 获取数据
 async function fetchData() {
     try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbzCdsSEnvNpIftrF-71Y1YXslrcMbKIeuWkEogQFP4v7PWklA4ah81dxeKGE3vJj0RPfA/exec?type=productData");
+        const response = await fetch("https://script.google.com/macros/s/AKfycbz-JYEqp1P7zi3ZLR9o5jXkdi718FW-BDAXU8ljp3QyAAxW6DK_H6NUF3_qLvfqgabZ/exec?type=productData");
         const result = await response.json();
 
         console.log("Fetched data:", result); // 确认数据结构是否正确
