@@ -1131,6 +1131,30 @@ header{
   cursor: pointer;
 }
 
+.scoreLog-formWrapper{
+  display: grid;
+  text-align: center;
+  align-items: center;
+}
+
+.scoreLog-formWrapper input{
+  padding: 5px;
+  width: 300px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.scoreLog-formWrapper button{
+  padding: 7px 15px;
+  border-radius: 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  font-weight: 900;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
 /* Lulu69 User List Table --> Start */
 
 .lulu69-userList-userID{
