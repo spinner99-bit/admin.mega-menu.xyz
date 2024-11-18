@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTHER | Unregister Number</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="shortcut icon" href="../Element/Icon.png">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="menuBtnC">
+        <i class='bx bx-menu'></i>
+    </div>
+    <div id="header" class="userInfoR">
+        <!-- 头部内容将根据用户登录状态动态插入 -->
+    </div>
+</header>
+
+<!-- 侧边栏菜单 -->
+<div class="sidebar" id="sidebar">
+    <div class="sideBarTopCont">
+        <h2>MENU</h2>
+        <button class="close-btn" id="closeSidebar">
+            <i class='bx bx-x'></i>
+        </button>
+    </div>
+
+    <div class="menu-container-wrapper">
+        <a href="../index"><i class='bx bxs-tachometer' ></i>Dashboard</a>
+
+        <div class="sideMenu-Cover">
+            <h1>LULU69</h1>
+            <a href="../Lulu69/addTransaction"><i class='bx bxs-badge-dollar' ></i>Add Transaction</a>
+            <a href="../Lulu69/user-list"><i class='bx bxs-user-circle'></i>Manage Users</a>
+            <a href="../Lulu69/product-list"><i class='bx bxs-store' ></i>Manage Product</a>
+            <a href="../Lulu69/set-Score"><i class='bx bxs-wallet' ></i>Set Users Score</a>
+            <a href="../Lulu69/purchase-History"><i class='bx bxs-objects-vertical-bottom'></i>Purchase History</a>
+        </div>
+
+        <div class="sideMenu-Cover">
+            <h1>Y15 FAMILY</h1>
+            <a href="../Y15-Family/userList"><i class='bx bxs-user-circle'></i>Manage Users</a>
+            <a href="../Y15-Family/upload-history"><i class='bx bx-history'></i>Upload History</a>
+        </div>
+
+        <div class="sideMenu-Cover">
+            <h1>OTHER</h1>
+            <a href="../Other/girls"><i class='bx bxs-image'></i>Girls Image</a>
+            <a href="../Other/unregister"><i class='bx bxs-contact'></i>Unregister</a>
+        </div>
+    </div>
+</div>
+
+<div class="fullPage-wrapper">
+
+<div class="unregisterFull-Wrapper">
+    <div class="unregister-container">
+        <div class="unregister-container-top">
+            <p>Add New Unregister</p>
+        </div>
+        <div class="unregister-add-container-wrapper">
+            <form method="post" action="" class="form" name="add-player">
+
+                <div class="unregister-form-perRow">
+                    <label>Company *</label>
+                    <select name="company" id="company">
+                        <option value="MB33">MB33</option>
+                                <option value="VR46">VR46</option>
+                    </select>
+                </div>
+
+                <div class="unregister-form-perRow">
+                    <label>Username *</label>
+                    <input type="text" name="username" placeholder="Username" id="username">
+                </div>
+
+                <div class="unregister-form-perRow">
+                    <label>Full Name *</label>
+                    <input type="text" name="fullname" placeholder="Full Name" id="fullname">
+                </div>
+
+                <div class="unregister-form-perRow">
+                    <label>Mobile Number *</label>
+                    <input type="number" name="mobile" placeholder="Mobile Number" id="mobile">
+                </div>
+
+                <div class="unregister-form-perRow">
+                    <label>Bank Type *</label>
+                    <select name="bank" id="bank">
+                        <option value="" disabled selected>Select Your Choice</option>
+                                <option value="Maybank">Maybank</option>
+                                <option value="Cimb Bank">Cimb Bank</option>
+                                <option value="Public Bank">Public Bank</option>
+                                <option value="Hong Leong Bank">Hong Leong Bank</option>
+                                <option value="Rhb Bank">Rhb Bank</option>
+                                <option value="Bank Simpanan Nasional">Bank Simpanan Nasional</option>
+                                <option value="Touch n Go">Touch n Go</option>
+                                <option value="Ambank">Ambank</option>
+                                <option value="Agrobank">Agrobank</option>
+                                <option value="Bank Islam">Bank Islam</option>
+                                <option value="Bank Muamalat">Bank Muamalat</option>
+                                <option value="Rakyat Malaysia">Rakyat Malaysia</option>
+                                <option value="Affin Bank">Affin Bank</option>
+                                <option value="Alliance Bank">Alliance Bank</option>
+                                <option value="Ocbc Bank">Ocbc Bank</option>
+                                <option value="Hsbc Bank">Hsbc Bank</option>
+                                <option value="United Overseas Bank">United Overseas Bank</option>
+                                <option value="Citibank">Citibank</option>
+                                <option value="Mbsb Bank">Mbsb Bank</option>
+                                <option value="GxBank">GxBank</option>
+                                <option value="ShopeePay">ShopeePay</option>
+                                <option value="Standard Chartered Bank">Standard Chartered Bank</option>
+                                <option value="Bigpay Malaysia">Bigpay Malaysia</option>
+                                <option value="Mufg Bank">Mufg Bank</option>
+                                <option value="Mizuho Bank">Mizuho Bank</option>
+                                <option value="Kuwait Finance House">Kuwait Finance House</option>
+                                <option value="Bangkok Bank Berhad">Bangkok Bank Berhad</option>
+                                <option value="Bnp Paribas Malaysia">Bnp Paribas Malaysia</option>
+                                <option value="Bank Of China">Bank Of China</option>
+                                <option value="Bank Of America">Bank Of America</option>
+                    </select>
+                </div>
+
+                <div class="unregister-form-perRow">
+                    <label>Account Number *</label>
+                    <input type="number" name="account" placeholder="Account Number" id="account">
+                </div>
+
+                <div class="unregister-form-perRow">
+                    <label>Come From *</label>
+                    <select name="come" id="come">
+                        <option value="SMS Messages">SMS Messages</option>
+                                <option value="Friends">Friends</option>
+                                <option value="Whatsapp">Whatsapp</option>
+                                <option value="Telegram">Telegram</option>
+                                <option value="Facebook">Facebook</option>
+                                <option value="Instagram">Instagram</option>
+                                <option value="Tiktok">Tiktok</option>
+                                <option value="Website">Website</option>
+                                <option value="Tips Pecah Bot">Tips Pecah Bot</option>
+                                <option value="Follow Up">Follow Up</option>
+                                <option value="Group Video 18 Percuma">Group Video 18 Percuma</option>
+                    </select>
+                </div>
+
+                <div class="unregister-bottom-submit">
+                    <button id="submit" onclick="audio.play();" class="form-submit">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="unregisterFull-Wrapper">
+    <div class="unregister-container">
+        <div class="unregister-container-top">
+            <p>Unregister List ( <span>0</span> )</p>
+            <input type="text" id="searchBox" placeholder="Search" onkeyup="searchUsers()">
+        </div>
+        <table id="playerTable">
+            <thead>
+                <tr>
+                    <th class="playerlist-username">Company</th>
+                    <th class="playerlist-username">Username</th>
+                    <th class="playerlist-name">Full Name</th>
+                    <th class="playerlist-mobile">Mobile Number</th>
+                    <th class="playerlist-bank">Bank Type</th>
+                    <th class="playerlist-account">Account</th>
+                    <th class="playerlist-from">Come From</th>
+                    <th class="playerlist-time">Create At</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</div>
+
+<script src="unregister.js"></script>
+
+</body>
+</html>
