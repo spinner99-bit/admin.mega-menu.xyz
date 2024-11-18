@@ -668,7 +668,7 @@ header{
 
 .transaction-Container th{
   font-weight: 900;
-  padding: 15px 10px;
+  padding: 5px 10px;
   background-color: #f2f2f2;
   border: 1px solid #ddd;
 }
@@ -1004,10 +1004,11 @@ header{
 }
 
 .lulu69-userList td,
-#productList td{
+#productList td,
+#scoreLogTable td{
   height: 100%;
   border: 1px solid #ddd;
-  padding: 2px 5px;
+  padding: 5px 10px;
   align-items: center;
   align-content: center;
 }
@@ -1023,7 +1024,8 @@ header{
 }
 
 .lulu69-userList th, .lulu69-userList td,
-#productList th, #productList td {
+#productList th, #productList td,
+#scoreLogTable th, #scoreLogTable td {
   text-align: center;
   align-items: center;
 }
@@ -1036,11 +1038,19 @@ header{
   background-color: #f2f2f2;
 }
 
+#scoreLogTable tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
 .lulu69-userList tr:nth-child(odd) {
   background-color: #ffffff;
 }
 
 #productList tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+#scoreLogTable tr:nth-child(odd) {
   background-color: #ffffff;
 }
 
@@ -1111,6 +1121,18 @@ header{
   cursor: pointer;
 }
 
+#scoreLogTable button{
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+/* Lulu69 User List Table --> Start */
+
 .lulu69-userList-userID{
   width: 12.5%;
 }
@@ -1144,6 +1166,10 @@ header{
   width: 6%;
 }
 
+/* Lulu69 User List Table --> End */
+
+/* Lulu69 Products List Table --> Start */
+
 .productList-Name,
 .productList-Category{
   width: 12%;
@@ -1171,4 +1197,48 @@ header{
 
 .productList-Action{
   width: 10%;
+}
+
+/* Lulu69 Products List Table --> End */
+
+/* Lulu69 Set Score Table --> Start */
+
+.setScore-customer{
+  width: 15%;
+}
+
+.setScore-reload{
+  width: 8%;
+}
+
+.setScore-points{
+  width: 8%;
+}
+
+.setScore-before{
+  width: 15%;
+}
+
+.setScore-orderID{
+  width: 15%;
+}
+
+.setScore-time{
+  width: 13%;
+}
+
+.setScore-text{
+  width: 10%;
+}
+
+/* Lulu69 Set Score Table --> End */
+
+@media (max-width: 850px) {
+  .setScore-points, .setScore-points,
+  .setScore-before, .setScore-orderID{
+    display: none;
+  }
+  #scoreLogTable td{
+    font-size: 12px;
+  }
 }
