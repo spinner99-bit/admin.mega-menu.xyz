@@ -54,25 +54,71 @@
 </div>
 
 <div class="fullPage-wrapper">
-    <form id="orderForm">
-        <label for="phone">Phone Number:</label>
-        <input type="text" id="phone" name="phone" required>
-        <br>
-        <label for="amount">Amount:</label>
-        <input type="number" id="amount" name="amount" required>
-        <br>
-        <label for="amountWithZero">Amount with '00' appended:</label>
-        <input type="text" id="amountWithZero" name="amountWithZero" readonly>
-        <br>
-        <label for="bonus">Bonus:</label>
-        <input type="text" id="bonus" name="bonus" readonly>
-        <br>
-        <label for="totalAmount">Total Amount:</label>
-        <input type="text" id="totalAmount" name="totalAmount" readonly>
-        <br>
-        <!-- 注意，点击按钮时不再直接调用 submitForm -->
-        <button type="button" id="submitButton">Submit</button>
-    </form>
+    <div class="transaction-add-wrapper">
+        <div class="transaction-add-container">
+            <div class="transaction-add-top">
+                <p>Add New Transaction</p>
+            </div>
+            <form id="orderForm">
+                <label for="phone">Customer Number :</label>
+                <input type="text" id="phone" name="phone" required>
+                <br>
+                <label for="amount">Reload Amount :</label>
+                <input type="number" id="amount" name="amount" required>
+                <br>
+                <label for="amountWithZero">Convert Points :</label>
+                <input type="text" id="amountWithZero" name="amountWithZero" readonly>
+                <br>
+                <label for="bonus">Bonus Amount :</label>
+                <input type="text" id="bonus" name="bonus" readonly>
+                <br>
+                <label for="totalAmount">Total Amount :</label>
+                <input type="text" id="totalAmount" name="totalAmount" readonly>
+                <br>
+                <button type="button" id="submitButton">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="pendingTransaction-Wrapper">
+        <div class="transaction-Container">
+            <div class="transaction-list-top">
+                <p>Score Log</p>
+            </div>
+            <div class="transaction-Search">
+                <select id="rowsPerPage">
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="1000">1000</option>
+                    <option value="all">All</option>
+                </select>
+                <input type="search" id="searchTransaction" placeholder="Search..." oninput="filterTransactions()">
+            </div>
+            <table id="scoreLogTable">
+                <thead>
+                    <tr>
+                        <th class="setScore-customer">Customer</th>
+                        <th class="setScore-reload">Reload Amount</th>
+                        <th class="setScore-points">Convert Points</th>
+                        <th class="setScore-points">Bonus</th>
+                        <th class="setScore-points">Total Points</th>
+                        <th class="setScore-before">Before > After</th>
+                        <th class="setScore-orderID">Order ID</th>
+                        <th class="setScore-time">Reload Time</th>
+                        <th class="setScore-text">Text</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be populated here -->
+                </tbody>
+            </table>
+            <div class="transaction-page-select">
+                <div></div>
+                <div id="pagination" class="pagination"></div> <!-- Pagination buttons container -->
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="set-Score.js"></script>
