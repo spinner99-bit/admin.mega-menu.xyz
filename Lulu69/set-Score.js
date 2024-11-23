@@ -301,16 +301,17 @@ function filterTransactions() {
 // 复制交易记录到剪贴板
 function copyToClipboard(customer, reloadAmount, convertPoints, bonus, totalPoints, beforeAfter, orderID) {
     const textToCopy = `
-**充值成功✅感谢老板支持💋撸撸69** 😍
+**充值成功✅感谢老板支持 🫦撸撸69** 😍
 
 🧸 充值用户 : ${customer}
 🆔 交易 ID : ${orderID}
-🔄 充值积分 : ${convertPoints}
+🔄 充值金币 : ${convertPoints}
 🎁 充值奖金 : ${bonus}
 ⭐️ 总共获得 : ${totalPoints}
 💎 充值前后余额 : ${beforeAfter}
 
-⚠️ **如果积分还未到账可以试着下拉刷新网站**
+⚠️ **如果金币还未到账可以试着下拉刷新网站**
+🫦 **购买资源 👉 www.lulu69.online**
 `.trim();
 
     navigator.clipboard.writeText(textToCopy)
