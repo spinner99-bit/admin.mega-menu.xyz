@@ -61,7 +61,7 @@ closeSidebarBtn.addEventListener('click', () => {
     sidebar.classList.remove('active'); // 点击关闭按钮隐藏侧边栏
 });
 
-const apiUrl = 'https://script.google.com/macros/s/AKfycbz57f5aK84Y_Mum8f2IqZaO5Om2u1vgLV78cTD6zVWUdCqN_zEUT5WCN3olBjGWwZHelg/exec'; // 替换为您的 Google Apps Script 部署链接
+const apiUrl = 'https://script.google.com/macros/s/AKfycbyOiryApkOZ6NjF2ZylN5PnvuY7E0mPipmsmYHhSl_1YMJsLIGaMxzFRbI4PoTF-YN7/exec'; // 替换为您的 Google Apps Script 部署链接
 
 async function loadOptions() {
     const response = await fetch(apiUrl, {
@@ -93,14 +93,25 @@ async function loadOptions() {
 }
 
 async function fetchProductLink(input) {
-    const productName = input.value;
+    const productName = input.value.trim();  // 获取产品名称并去除前后空格
+
     if (productName) {
+        // 向 Google Apps Script 后端发送请求
         const response = await fetch(apiUrl, {
             method: 'POST',
             body: new URLSearchParams({ action: 'fetchProductLink', productName })
         });
-        const productLink = await response.json();
-        input.closest('tr').querySelector('input[name="productLink"]').value = productLink;
+
+        const data = await response.json();  // 解析返回的 JSON 数据
+
+        if (data.productLink && data.price) {
+            // 在页面上填充数据
+            const row = input.closest('tr');
+            row.querySelector('input[name="productLink"]').value = data.productLink;
+            row.querySelector('input[name="price"]').value = data.price;
+        } else {
+            console.error('No data received for this product.');
+        }
     }
 }
 
@@ -112,7 +123,7 @@ async function fetchProductLink(input) {
         <td><input type="text" name="productLink" readonly /></td>
         <td><select name="promotion"></select></td>
         <td><select name="socialMedia"></select></td>
-        <td><input type="number" name="price" value="2.50" /></td> <!-- 设置默认值为 2.50 -->
+        <td><input type="number" name="price"/></td> <!-- 设置默认值为 2.50 -->
         <td><button onclick="removeRow(this)">Remove</button></td>
     `;
     document.querySelector('#transactionTable tbody').appendChild(newRow);
@@ -392,7 +403,7 @@ function copyToCustomerMessage(productName, productLink) {
 
 🔗 资源链接 : ${productLink}
 
-期待老板再次光临 **lulu69.mega-menu.xyz** 😎
+期待老板再次光临 **www.lulu69.online** 😎
 `.trim();
 
     navigator.clipboard.writeText(message)
