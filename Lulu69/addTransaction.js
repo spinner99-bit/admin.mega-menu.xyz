@@ -404,6 +404,7 @@ function copyToCustomerMessage(productName, productLink) {
 🔗 资源链接 : ${productLink}
 
 期待老板再次光临 **www.lulu69.online** 😎
+纸飞机资源库 👉 https://t.me/+SHBzNzxBSnlkODk1
 `.trim();
 
     navigator.clipboard.writeText(message)
