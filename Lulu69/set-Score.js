@@ -306,7 +306,7 @@ function copyToClipboard(customer, reloadAmount, convertPoints, bonus, totalPoin
 🧸 充值用户 : ${customer}
 🆔 交易 ID : ${orderID}
 🔄 充值金币 : ${convertPoints}
-🎁 充值奖金 : ${bonus}
+🎁 额外奖金 : ${bonus}
 ⭐️ 总共获得 : ${totalPoints}
 💎 充值前后余额 : ${beforeAfter}
 
