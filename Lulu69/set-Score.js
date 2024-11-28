@@ -173,7 +173,7 @@ let transactionsData = []; // 所有交易记录数据
 
 // 获取交易记录
 function getScoreLog() {
-    fetch('https://script.google.com/macros/s/AKfycbxA_cTUbNQ28dIj7eOIS9QeXK6LEJ7BQPPSxoQr7d3zZ7XE2iSWsqlOaKkw-HktD8k/exec?action=getScoreLog')
+    fetch('https://script.google.com/macros/s/AKfycbw5pp4pC3NdGeJQTqLpGURIs0hL6lu1wI3n54NsGlKeqK0jBoXE4QS8irvSiBGLyVjL/exec?action=getScoreLog')
     .then(response => response.json())
     .then(data => {
         // console.log(data); // 打印数据查看结构
@@ -211,6 +211,7 @@ function displayTransactions() {
             <td class="setScore-before">${transaction[5] || ''}</td>          <!-- beforeAfter -->
             <td class="setScore-orderID">${transaction[6] || ''}</td>          <!-- orderID -->
             <td class="setScore-time">${transaction[7] || ''}</td>          <!-- reloadTime -->
+            <td class="setScore-time">${transaction[8] || ''}</td>
             <td class="setScore-text"><button onclick="copyToClipboard('${transaction[0]}', '${transaction[1]}', '${transaction[2]}', '${transaction[3]}', '${transaction[4]}', '${transaction[5]}', '${transaction[6]}')"><i class='bx bxs-copy-alt' ></i></button></td>
         `;
         tbody.appendChild(row);
