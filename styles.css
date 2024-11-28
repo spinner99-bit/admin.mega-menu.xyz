@@ -11,6 +11,140 @@ body {
   font-weight: 900;
 }
 
+.loginPage {
+    font-family: Arial, sans-serif;
+    background: url('Element/bg.webp');
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.loginForm-wrapper {
+    padding: 30px;
+    background-color: transparent;
+    align-items: center;
+    text-align: center;
+}
+
+.loginForm-wrapper h1 {
+    font-size: xx-large;
+    padding-bottom: 100px;
+}
+
+.loginForm-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-container {
+    position: relative;
+    width: 300px;
+    margin: 10px 0;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #ccc;
+    background-color: transparent;
+    font-weight: 900;
+    transition: border-color 0.3s ease;
+}
+
+.input-container input:focus,
+.input-container input:not(:placeholder-shown) {
+    border-color: #07468e;
+}
+
+.input-container i {
+    position: absolute;
+    top: 50%;
+    right: 10px; /* 图标在输入框右边 */
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #ccc;
+    pointer-events: none; /* 防止图标干扰点击输入框 */
+    transition: color 0.3s ease;
+}
+
+.input-container:focus-within i {
+    color: #07468e;
+}
+
+.input-container input:not(:placeholder-shown)~i {
+    color: #07468e;
+}
+
+.input-container span.bar {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    height: 2px;
+    width: 0;
+    background-color: #07468e;
+    transform: translateX(-50%);
+    transition: width 0.4s ease;
+}
+
+.input-container input:focus~.bar,
+.input-container input:not(:placeholder-shown)~.bar {
+    width: 100%;
+}
+
+.input-container .loginPage-Label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #ccc;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.input-container input:focus~.loginPage-Label,
+.input-container input:not(:placeholder-shown)~.loginPage-Label {
+    top: -10px;
+    color: #07468e;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.loginForm-wrapper button {
+    width: 300px;
+    padding: 7px;
+    border-radius: 15px;
+    border: none;
+    margin-top: 30px;
+    background-color: #07468e;
+    color: white;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.loginForm-wrapper i {
+    font-size: 26px;
+    margin-left: 3px;
+}
+
+.loginForm-wrapper button:hover {
+    background-color: #1e4068;
+}
+
+#loginMessage{
+    color: red;
+    font-weight: 900;
+    font-size: medium;
+}
+
 header{
   display: flex;
   justify-content: space-between;
