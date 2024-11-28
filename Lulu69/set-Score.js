@@ -71,6 +71,7 @@ function submitForm() {
     const orderId = 'Lu69' + new Date().getTime(); // 创建订单 ID
     // const status = 'Approve';
     const submitTime = new Date().toLocaleString(); // 获取提交时间
+    const agentName = localStorage.getItem('username');
 
     // 准备要发送到 Google Apps Script 的数据
     const data = {
@@ -81,7 +82,8 @@ function submitForm() {
         totalAmount: totalAmount,
         orderId: orderId,
         // status: status,
-        submitTime: submitTime
+        submitTime: submitTime,
+        agentName: agentName
     };
 
     // 调用 Google Apps Script Web 应用来保存数据
@@ -127,7 +129,7 @@ function calculateFields(amount) {
 
 // 使用 fetch API 调用 Google Apps Script 的 Web 应用
 function saveToGoogleSheets(data) {
-    const url = 'https://script.google.com/macros/s/AKfycbz0B7dnV83ljtcdfEPxgYLYD0Rq84uzo11Ig3G9Kh57Tni6yydwJI_-fSh-HsDRsKii/exec'; // Web 应用的 URL
+    const url = 'https://script.google.com/macros/s/AKfycbxnI9R2MBfc4XZZekDI5co6uWxhdGhTidLANf_-Z75SMgAsRLqU5_ue4Bb6sZQrtb5o/exec'; // Web 应用的 URL
 
     // 将数据作为 JSON 字符串发送
     fetch(url, {
