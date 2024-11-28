@@ -61,7 +61,7 @@ closeSidebarBtn.addEventListener('click', () => {
     sidebar.classList.remove('active'); // 点击关闭按钮隐藏侧边栏
 });
 
-const apiUrl = 'https://script.google.com/macros/s/AKfycbyOiryApkOZ6NjF2ZylN5PnvuY7E0mPipmsmYHhSl_1YMJsLIGaMxzFRbI4PoTF-YN7/exec'; // 替换为您的 Google Apps Script 部署链接
+const apiUrl = 'https://script.google.com/macros/s/AKfycbxZNTnH2YalBXvO6HJNypvY8c0j8-fgxlw0sUAyNA2XqE9Yh183BKTrpclpnt8qEdyl/exec'; // 替换为您的 Google Apps Script 部署链接
 
 async function loadOptions() {
     const response = await fetch(apiUrl, {
