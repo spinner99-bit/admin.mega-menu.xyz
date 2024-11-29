@@ -1394,7 +1394,7 @@ header{
 
 @media (max-width: 850px) {
   .setScore-points, .setScore-points,
-  .setScore-before, .setScore-orderID{
+  .setScore-before, .setScore-orderID, .setScore-toHide{
     display: none;
   }
   #scoreLogTable td{
