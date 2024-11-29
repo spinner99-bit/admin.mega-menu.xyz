@@ -211,7 +211,7 @@ function displayTransactions() {
             <td class="setScore-before">${transaction[5] || ''}</td>          <!-- beforeAfter -->
             <td class="setScore-orderID">${transaction[6] || ''}</td>          <!-- orderID -->
             <td class="setScore-time">${transaction[7] || ''}</td>          <!-- reloadTime -->
-            <td class="setScore-time">${transaction[8] || ''}</td>
+            <td class="setScore-time setScore-toHide">${transaction[8] || ''}</td>
             <td class="setScore-text"><button onclick="copyToClipboard('${transaction[0]}', '${transaction[1]}', '${transaction[2]}', '${transaction[3]}', '${transaction[4]}', '${transaction[5]}', '${transaction[6]}')"><i class='bx bxs-copy-alt' ></i></button></td>
         `;
         tbody.appendChild(row);
