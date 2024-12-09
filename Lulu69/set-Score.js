@@ -314,7 +314,9 @@ function copyToClipboard(customer, reloadAmount, convertPoints, bonus, totalPoin
 💎 充值前后余额 : ${beforeAfter}
 
 ⚠️ **如果金币还未到账可以试着下拉刷新网站**
+
 🫦 **购买资源 👉 www.lulu69.online**
+🦋 **官方频道 👉 t.me/+BXZAXx3bOTQ1NTRl**
 `.trim();
 
     navigator.clipboard.writeText(textToCopy)
