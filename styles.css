@@ -930,6 +930,7 @@ header{
   .transaction-Promote,
   .transaction-Social,
   .transaction-ID,
+  .addransaction-Social,
   .toHide{
     display: none;
   }
