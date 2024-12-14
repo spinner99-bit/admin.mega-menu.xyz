@@ -122,7 +122,7 @@ async function fetchProductLink(input) {
         <td><input type="text" name="productName" oninput="fetchProductLink(this)" /></td>
         <td><input type="text" name="productLink" readonly /></td>
         <td><select name="promotion"></select></td>
-        <td><select name="socialMedia"></select></td>
+        <td class="addransaction-Social"><select name="socialMedia"></select></td>
         <td><input type="number" name="price"/></td> <!-- 设置默认值为 2.50 -->
         <td><button onclick="removeRow(this)">Remove</button></td>
     `;
@@ -404,7 +404,7 @@ function copyToCustomerMessage(productName, productLink) {
 🔗 资源链接 : ${productLink}
 
 期待老板再次光临 **www.lulu69.online** 😎
-纸飞机资源库 👉 https://t.me/+SHBzNzxBSnlkODk1
+纸飞机资源库 👉 **t.me/+SHBzNzxBSnlkODk1**
 `.trim();
 
     navigator.clipboard.writeText(message)
